@@ -1,0 +1,21 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    prometheus: app-prometheus
+    role: app-alert-rules
+  name: exampleapp-rules
+  namespace: application-monitoring
+spec:
+  groups:
+      - name: exampleapp
+        rules:
+            - alert: exampleapp-DOWN
+              annotations:
+                  description: exampleapp has disappeared from Prometheus target discovery.
+                  summary: Failed to load exampleapp.
+              expr: |-
+                  absent(up{job="exampleapp-service"} == 1)
+              for: 10s
+              labels:
+                  severity: critical

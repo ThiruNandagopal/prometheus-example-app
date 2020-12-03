@@ -1,5 +1,5 @@
 apiVersion: monitoring.coreos.com/v1
-kind: PodMonitor
+kind: ServiceMonitor
 metadata:
   labels:
     app.kubernetes.io/name: prometheus-example-app
@@ -10,5 +10,7 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: prometheus-example-app
-  podMetricsEndpoints:
-  - port: webapp
+  endpoints:
+  - interval: 30s
+    port: webapp
+

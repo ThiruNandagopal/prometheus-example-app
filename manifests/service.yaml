@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    prometheus: app-prometheus
+    app.kubernetes.io/name: prometheus-example-app
+  name: exampleapp-service
+  namespace: application-monitoring
+spec:
+  ports:
+  - name: webapp
+    port: 8080
+    targetPort: webapp
+  selector:
+    app.kubernetes.io/name: prometheus-example-app
+  sessionAffinity: ClientIP
